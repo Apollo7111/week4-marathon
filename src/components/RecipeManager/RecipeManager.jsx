@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./RecipeManager.css";
+import Recipe from "./Recipe";
 
 function RecipeManager() {
   const [recipes, setRecipes] = useState([]);
@@ -147,26 +148,13 @@ function RecipeManager() {
           <p className="empty-message">No recipes yet. Add one to get started!</p>
         ) : (
           <ol className="recipes-list">
-            {recipes.map((recipe, index) => (
-              <li key={index} className="recipe-item">
-                <div className="recipe-info">
-                  <span className="recipe-name">{recipe.name}</span>
-                  <span className="recipe-inputs">Description: {recipe.description}</span>
-                  <span className="recipe-inputs">Cuisine: {recipe.cuisine}</span>
-                  <span className="recipe-inputs">Recipe difficulty: {recipe.difficulty}</span>
-                  <span className="recipe-inputs">Total cook time: {recipe.time} minutes</span>
-                  <span className="recipe-inputs">Servings: {recipe.servings}</span>
-                  <span className="recipe-inputs">Allergens: {recipe.allergens}</span>
-                  <span className="recipe-inputs">Ingredients: {recipe.ingredients}</span>
-                </div>
-                <button
-                  onClick={() => deleteRecipe(index)}
-                  className="delete-button"
-                >
-                  Delete
-                </button>
-              </li>
-            ))}
+              {recipes.map((recipe, index) => (
+                <Recipe
+                  key={index}
+                  recipe={recipe}
+                  onDelete={() => deleteRecipe(index)}
+                />
+              ))}
           </ol>
         )}
       </div>
