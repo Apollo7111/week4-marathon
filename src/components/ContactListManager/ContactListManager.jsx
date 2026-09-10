@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import "./ContactListManager.css";
 
+import React, { useState } from "react";
+import Contact from "./Contact";
+import "./ContactListManager.css";
 
 function ContactListManager() {
   const [contacts, setContacts] = useState([]);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -11,45 +13,30 @@ function ContactListManager() {
   const [birthday, setBirthday] = useState("");
   const [notes, setNotes] = useState("");
   const [website, setWebsite] = useState("");
-  const [favourite, setFavourite] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");   
+  const [favourite, setFavourite] = useState(false);
 
-  // Handle input change for name
-  function handleNameChange(event) {
-    setName(event.target.value);
-  }
-
-  // Handle input change for email
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
-  }
-
-  //all the functions are written inline afterwards
+  const [errorMessage, setErrorMessage] = useState(""); //error state
 
 
-
-
-  // ADD NEW CONTACT
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // Add a new contact
   function addContact(event) {
-  event.preventDefault();
+    event.preventDefault();
 
+    // error is fields for name and email are empty
+    if (
+      name.trim() === "" ||
+      email.trim() === ""
+    ) {
+      setErrorMessage(
+        "Please fill in at least name and email."  //error message text
+      );
+      return;
+    }
 
-  //=====================
-  // error handling 
+    setErrorMessage("");
 
-  if (
-    name.trim() === "" || email.trim() === "") {   //check name and email are not empty
-    setErrorMessage(
-      "Please fill in at least name, email and phone."
-    );
-    return;
-  }
-
-  setErrorMessage("");  //reset error message
-//============================
-  setContacts((c) => [
-    ...c,
-    {
+    const newContact = {
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
@@ -58,150 +45,141 @@ function ContactListManager() {
       notes: notes.trim(),
       website: website.trim(),
       favourite,
-    },
-  ]);
+    };
 
-  // Clear all input fields
-  setName("");
-  setEmail("");
-  setPhone("");
-  setJob("");
-  setBirthday("");
-  setNotes("");
-  setWebsite("");
-  setFavourite(false);
-}
+    setContacts((currentContacts) => [
+      ...currentContacts,
+      newContact,
+    ]);
 
-
-
-//===========
-  // Delete a contact from the list
-  function deleteContact(index) {
-    const updatedContacts = contacts.filter((_, i) => i !== index);
-    setContacts(updatedContacts);
+    // Clear input fields
+    setName("");
+    setEmail("");
+    setPhone("");
+    setJob("");
+    setBirthday("");
+    setNotes("");
+    setWebsite("");
+    setFavourite(false);
   }
 
-//==============
+  // Delete a contact
+  function deleteContact(index) {
+    setContacts((currentContacts) =>
+      currentContacts.filter((_, i) => i !== index)
+    );
+  }
 
-
-// render
+  //render 
+  //all the functions were done in line so make the code cleaner
 
   return (
     <div className="app-container">
       <h1>Contact List Manager</h1>
-      
-      <div className="input-section">
+
+      <form onSubmit={addContact} className="input-section">
         <input
           type="text"
           placeholder="Enter contact name..."
           value={name}
-          onChange={handleNameChange}
+          onChange={(e) => setName(e.target.value)}
           className="input-field"
-          required
         />
+
         <input
           type="email"
           placeholder="Enter email address..."
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => setEmail(e.target.value)}
           className="input-field"
-          required
         />
-         <input
+
+        <input
           type="tel"
           placeholder="Add phone number..."
           value={phone}
-          onChange={(e) => setPhone(e.target.value)} //HANDLE PHONE
-          className="input-field" 
-          required
+          onChange={(e) => setPhone(e.target.value)}
+          className="input-field"
         />
+
         <input
           type="text"
           placeholder="Job Title"
           value={jobTitle}
-          onChange={(e) => setJob(e.target.value)}  //HANDLE job
-          className="input-field" 
-          required
+          onChange={(e) => setJob(e.target.value)}
+          className="input-field"
         />
+
         <input
           type="date"
           value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}  //HANDLE BD
-          className="input-field" 
-          required
+          onChange={(e) => setBirthday(e.target.value)}
+          className="input-field"
         />
+
         <textarea
           placeholder="Notes"
           value={notes}
-          onChange={(e) => setNotes(e.target.value)}  //HANDLE hnotes
-          className="input-field" 
+          onChange={(e) => setNotes(e.target.value)}
+          className="input-field"
         />
+
         <input
           type="url"
           placeholder="Website"
           value={website}
-          onChange={(e) => setWebsite(e.target.value)}  //HANDLE Website
-          className="input-field" 
-          
+          onChange={(e) => setWebsite(e.target.value)}
+          className="input-field"
         />
+
         <label>
           <input
-          type="checkbox"
-          checked={favourite}
-          onChange={(e) =>setFavourite(e.target.checked)}
+            type="checkbox"
+            checked={favourite}
+            onChange={(e) => setFavourite(e.target.checked)}
           />
-          <span style={{marginLeft:"10px"}}>
-          Favourite ⭐
+
+          <span style={{ marginLeft: "10px" }}>
+            Favourite ⭐
           </span>
         </label>
 
 
+    {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
+    {/*Button*/}
 
-
-
-{/* BUTTON TO SUBMIT */}
-
-        <button type="submit" onClick={addContact} className="add-button"> 
-  Add Contact
+    
+        <button
+          type="submit"
+          className="add-button"
+        >
+          Add Contact
         </button>
 
-{/* ERROR DISPLAY */}
-
-{errorMessage && (
-  <p className="error-message">
-    {errorMessage}
-  </p>
-)}
-
-
-{/* SAVED CONTACTS DISPLAY */}
-      </div>
+    {/*error display*/}
+    
+        {errorMessage && (
+          <p className="error-message">
+            {errorMessage}
+          </p>
+        )}
+      </form>
 
       <div className="contacts-section">
         <h2>Your Contacts ({contacts.length})</h2>
+
         {contacts.length === 0 ? (
-          <p className="empty-message">No contacts yet. Add one to get started!</p>
+          <p className="empty-message">
+            No contacts yet. Add one to get started!
+          </p>
         ) : (
           <ol className="contacts-list">
             {contacts.map((contact, index) => (
-              <li key={index} className="contact-item">
-                <div className="contact-info">
-                  <span className="contact-name">{contact.name}</span>
-                  <span className="contact-email">{contact.email}</span>
-                  <span className="contact-phone">{contact.phone}</span>
-                  <span className="contact-jobTtitle">{contact.jobTitle}</span>
-                  <span className="contact-birthday">{contact.birthday}</span>
-                  <span className="contact-website">{contact.website}</span>
-                  <span className="contact-notes">{contact.notes}</span>
-                  <span className="contact-detail">Favourite: {contact.favourite ? "⭐" : ""}</span>
-                </div>
-                <button
-                  onClick={() => deleteContact(index)}
-                  className="delete-button"
-                >
-                  Delete
-                </button>
-              </li>
+              <Contact
+                key={index}
+                contact={contact}
+                onDelete={() => deleteContact(index)}
+              />
             ))}
           </ol>
         )}
@@ -211,3 +189,4 @@ function ContactListManager() {
 }
 
 export default ContactListManager;
+
