@@ -1,83 +1,180 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import "./RecipeManager.css";
 
 function RecipeManager() {
+  const [recipes, setRecipes] = useState([]);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [cuisine, setCuisine] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [time, setTime] = useState('');
-  const [servings, setservings] = useState('');
+  const [servings, setServings] = useState('');
   const [allergens, setAllergens] = useState('');
   const [ingredients, setIngredients] = useState('');
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log('Recipe successfully added :)!');
-
+  function handleNameChange(event) {
+    setName(event.target.value);
   }
+
+  function handleDescriptionChange(event) {
+    setDescription(event.target.value);
+  }
+
+  function handleCuisineChange(event) {
+    setCuisine(event.target.value);
+  }
+
+  function handleDifficultyChange(event) {
+    setDifficulty(event.target.value);
+  }
+
+  function handleTimeChange(event) {
+    setTime(event.target.value);
+  }
+
+  function handleServingsChange(event) {
+    setServings(event.target.value);
+  }
+  function handleAllergensChange(event) {
+    setAllergens(event.target.value);
+  }
+
+  function handleIngredientsChange(event) {
+    setIngredients(event.target.value);
+  }
+
+  function addRecipe() {
+    if (name.trim() !== "" && description.trim() !== "" && cuisine.trim() !== "" && difficulty.trim() !== "" && time.trim() !== "" && servings.trim() !== "" && allergens.trim() !== "" && ingredients.trim() !== "") {
+      setRecipes((b) => [...b, { name, description, cuisine, difficulty, time, servings, allergens, ingredients }]);
+      setName("");
+      setDescription("");
+      setCuisine("");
+      setDifficulty("");
+      setTime("");
+      setServings("");
+      setAllergens("");
+      setIngredients("");
+    }
+  }
+
+  function deleteRecipe(index) {
+    const updateRecipes = recipes.filter((_, i) => i !== index);
+    setRecipes(updateRecipes);
+  }
+
   return (
-    <div>
-      RecipeManager
-      <div>
-        <div onSubmit={onSubmit}>
-          <div>
-            <label>Name:</label>
-            <input id='name' type='text' placeholder="Enter name of recipe" onChange={(e) => setName(e.target.value)} value={name} />
-          </div>
+    <div className="app-container">
+      <h1>Recipe Manager</h1>
+      <div className="input-section">
 
-          <div>
-            <label htmlFor='description'>Description:</label>
-            <input id='decription' type='text' placeholder="Add description of your recipe" onChange={(e) => setDescription(e.target.value)} value={description} />
-          </div>
+        <input
+          type="text"
+          placeholder="Enter name of recipe..."
+          value={name}
+          onChange={handleNameChange}
+          className="input-field"
+        />
 
-          <div>
-            <div>
-              <label htmlFor='cuisine'>Cuisine:</label>
-              <input id='cuisine' type='text' onChange={(e) => setCuisine(e.target.value)} value={cuisine} />
-            </div>
+        <input
+          type="text"
+          placeholder="Enter description..."
+          value={description}
+          onChange={handleDescriptionChange}
+          className="input-field"
+        />
 
-            <div>
-              <label htmlFor='difficulty'>Difficulty:</label>
-              <select
-                name='difficultyLevel'
-                onChange={e => setDifficulty(e.target.value)}
-                value={difficulty}
-              >
-                <option value='' disabled>
-                  Select difficulty...
-                </option>
-                <option>Easy</option>
-                <option>Medium</option>
-                <option>Hard</option>
-              </select>
-            </div>
+        <input
+          type="text"
+          placeholder="Enter cuisine/origin of recipe..."
+          value={cuisine}
+          onChange={handleCuisineChange}
+          className="input-field"
+        />
 
-            <div>
-              <label htmlFor='time'>Time:</label>
-              <input id='time' type='number' placeholder="Enter time(minutes) needed for recipe" onChange={(e) => setTime(e.target.value)} value={time} />
-            </div>
-
-            <div>
-              <label htmlFor='servings'>Servings:</label>
-              <input id='servings' type='number' placeholder="Add servings..." onChange={(e) => setservings(e.target.value)} value={servings} />
-            </div>
-
-            <div>
-              <label htmlFor='allergens'>Allergens:</label>
-              <input id='allergens' type='text' placeholder="Please add any allergies..." onChange={(e) => setAllergens(e.target.value)} value={allergens} />
-            </div>
-
-            <div>
-              <label htmlFor='ingredients'>Ingredients:</label>
-              <input id='ingredients' type='text' onChange={(e) => setIngredients(e.target.value)} value={ingredients} />
-            </div>
-
-          </div>
-          <button>Submit</button>
+        <div className="input-field" style={{ backgroundColor: "white", color: "gray" }}>
+          <label htmlFor='difficulty'>Difficulty: </label>
+          <select
+            name='difficultyLevel'
+            onChange={handleDifficultyChange}
+            value={difficulty}
+          >
+            <option value='' disabled>
+              Select
+            </option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
         </div>
+
+        <input
+          type="number"
+          placeholder="Enter total cook time needed..."
+          value={time}
+          onChange={handleTimeChange}
+          className="input-field"
+        />
+
+        <input
+          type="number"
+          placeholder="Enter total amount of servings..."
+          value={servings}
+          onChange={handleServingsChange}
+          className="input-field"
+        />
+
+        <input
+          type="text"
+          placeholder="Enter allergens..."
+          value={allergens}
+          onChange={handleAllergensChange}
+          className="input-field"
+        />
+
+        <textarea
+          placeholder="Enter ingredients needed..."
+          value={ingredients}
+          onChange={handleIngredientsChange}
+          className="input-field"
+        />
+
+        <button onClick={addRecipe} className="add-button">Submit</button>
+      </div>
+
+      <div className="recipes-section">
+        <h2>Your Recipes ({recipes.length})</h2>
+        {recipes.length === 0 ? (
+          <p className="empty-message">No recipes yet. Add one to get started!</p>
+        ) : (
+          <ol className="recipes-list">
+            {recipes.map((recipe, index) => (
+              <li key={index} className="recipe-item">
+                <div className="recipe-info">
+                  <span className="recipe-name">{recipe.name}</span>
+                  <span className="recipe-inputs">Description: {recipe.description}</span>
+                  <span className="recipe-inputs">Cuisine: {recipe.cuisine}</span>
+                  <span className="recipe-inputs">Recipe difficulty: {recipe.difficulty}</span>
+                  <span className="recipe-inputs">Total cook time: {recipe.time} minutes</span>
+                  <span className="recipe-inputs">Servings: {recipe.servings}</span>
+                  <span className="recipe-inputs">Allergens: {recipe.allergens}</span>
+                  <span className="recipe-inputs">Ingredients: {recipe.ingredients}</span>
+                </div>
+                <button
+                  onClick={() => deleteRecipe(index)}
+                  className="delete-button"
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
 
     </div>
+
+
+
   )
 }
 
