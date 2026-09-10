@@ -12,6 +12,7 @@ function ContactListManager() {
   const [notes, setNotes] = useState("");
   const [website, setWebsite] = useState("");
   const [favourite, setFavourite] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");   
 
   // Handle input change for name
   function handleNameChange(event) {
@@ -28,40 +29,62 @@ function ContactListManager() {
 
 
 
-  // Add a new contact to the list
-  function addContact() {
-  if (name.trim() !== "" && email.trim() !== "") {
-    setContacts((c) => [
-      ...c,
-      {
-        name,
-        email,
-        phone,
-        jobTitle,
-        birthday,
-        notes,
-        website,
-        favourite,
-      },
-    ]);
+  // ADD NEW CONTACT
+  function addContact(event) {
+  event.preventDefault();
 
-    // Clear all input fields
-    setName("");
-    setEmail("");
-    setPhone("");
-    setJob("");
-    setBirthday("");
-    setNotes("");
-    setWebsite("");
-    setFavourite(false);
+
+  //=====================
+  // error handling 
+
+  if (
+    name.trim() === "" || email.trim() === "") {   //check name and email are not empty
+    setErrorMessage(
+      "Please fill in at least name, email and phone."
+    );
+    return;
   }
+
+  setErrorMessage("");  //reset error message
+//============================
+  setContacts((c) => [
+    ...c,
+    {
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      jobTitle: jobTitle.trim(),
+      birthday,
+      notes: notes.trim(),
+      website: website.trim(),
+      favourite,
+    },
+  ]);
+
+  // Clear all input fields
+  setName("");
+  setEmail("");
+  setPhone("");
+  setJob("");
+  setBirthday("");
+  setNotes("");
+  setWebsite("");
+  setFavourite(false);
 }
 
+
+
+//===========
   // Delete a contact from the list
   function deleteContact(index) {
     const updatedContacts = contacts.filter((_, i) => i !== index);
     setContacts(updatedContacts);
   }
+
+//==============
+
+
+// render
 
   return (
     <div className="app-container">
@@ -74,6 +97,7 @@ function ContactListManager() {
           value={name}
           onChange={handleNameChange}
           className="input-field"
+          required
         />
         <input
           type="email"
@@ -81,6 +105,7 @@ function ContactListManager() {
           value={email}
           onChange={handleEmailChange}
           className="input-field"
+          required
         />
          <input
           type="tel"
@@ -88,6 +113,7 @@ function ContactListManager() {
           value={phone}
           onChange={(e) => setPhone(e.target.value)} //HANDLE PHONE
           className="input-field" 
+          required
         />
         <input
           type="text"
@@ -95,12 +121,14 @@ function ContactListManager() {
           value={jobTitle}
           onChange={(e) => setJob(e.target.value)}  //HANDLE job
           className="input-field" 
+          required
         />
         <input
           type="date"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}  //HANDLE BD
           className="input-field" 
+          required
         />
         <textarea
           placeholder="Notes"
@@ -114,6 +142,7 @@ function ContactListManager() {
           value={website}
           onChange={(e) => setWebsite(e.target.value)}  //HANDLE Website
           className="input-field" 
+          
         />
         <label>
           <input
@@ -130,11 +159,22 @@ function ContactListManager() {
 
 
 
+{/* BUTTON TO SUBMIT */}
 
-
-        <button onClick={addContact} className="add-button">
-          Add Contact
+        <button type="submit" onClick={addContact} className="add-button"> 
+  Add Contact
         </button>
+
+{/* ERROR DISPLAY */}
+
+{errorMessage && (
+  <p className="error-message">
+    {errorMessage}
+  </p>
+)}
+
+
+{/* SAVED CONTACTS DISPLAY */}
       </div>
 
       <div className="contacts-section">
@@ -153,7 +193,7 @@ function ContactListManager() {
                   <span className="contact-birthday">{contact.birthday}</span>
                   <span className="contact-website">{contact.website}</span>
                   <span className="contact-notes">{contact.notes}</span>
-                  <span className="contact-detail">Favourite: {contact.favourite ? "Yes" : "No"}</span>
+                  <span className="contact-detail">Favourite: {contact.favourite ? "⭐" : ""}</span>
                 </div>
                 <button
                   onClick={() => deleteContact(index)}
