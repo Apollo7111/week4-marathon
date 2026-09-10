@@ -30,12 +30,32 @@ function ContactListManager() {
 
   // Add a new contact to the list
   function addContact() {
-    if (name.trim() !== "" && email.trim() !== "") {
-      setContacts((c) => [...c, { name, email }]);
-      setName("");
-      setEmail(""); // Clear the input fields
-    }
+  if (name.trim() !== "" && email.trim() !== "") {
+    setContacts((c) => [
+      ...c,
+      {
+        name,
+        email,
+        phone,
+        jobTitle,
+        birthday,
+        notes,
+        website,
+        favourite,
+      },
+    ]);
+
+    // Clear all input fields
+    setName("");
+    setEmail("");
+    setPhone("");
+    setJob("");
+    setBirthday("");
+    setNotes("");
+    setWebsite("");
+    setFavourite(false);
   }
+}
 
   // Delete a contact from the list
   function deleteContact(index) {
@@ -128,6 +148,12 @@ function ContactListManager() {
                 <div className="contact-info">
                   <span className="contact-name">{contact.name}</span>
                   <span className="contact-email">{contact.email}</span>
+                  <span className="contact-phone">{contact.phone}</span>
+                  <span className="contact-jobTtitle">{contact.jobTitle}</span>
+                  <span className="contact-birthday">{contact.birthday}</span>
+                  <span className="contact-website">{contact.website}</span>
+                  <span className="contact-notes">{contact.notes}</span>
+                  <span className="contact-detail">Favourite: {contact.favourite ? "Yes" : "No"}</span>
                 </div>
                 <button
                   onClick={() => deleteContact(index)}
