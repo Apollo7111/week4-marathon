@@ -6,6 +6,12 @@ function ContactListManager() {
   const [contacts, setContacts] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [jobTitle, setJob] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [notes, setNotes] = useState("");
+  const [website, setWebsite] = useState("");
+  const [favourite, setFavourite] = useState("");
 
   // Handle input change for name
   function handleNameChange(event) {
@@ -16,6 +22,11 @@ function ContactListManager() {
   function handleEmailChange(event) {
     setEmail(event.target.value);
   }
+
+  //all the functions are written inline afterwards
+
+
+
 
   // Add a new contact to the list
   function addContact() {
@@ -51,6 +62,56 @@ function ContactListManager() {
           onChange={handleEmailChange}
           className="input-field"
         />
+         <input
+          type="tel"
+          placeholder="Add phone number..."
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)} //HANDLE PHONE
+          className="input-field" 
+        />
+        <input
+          type="text"
+          placeholder="Job Title"
+          value={jobTitle}
+          onChange={(e) => setJob(e.target.value)}  //HANDLE job
+          className="input-field" 
+        />
+        <input
+          type="date"
+          value={birthday}
+          onChange={(e) => setBirthday(e.target.value)}  //HANDLE BD
+          className="input-field" 
+        />
+        <textarea
+          placeholder="Notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}  //HANDLE hnotes
+          className="input-field" 
+        />
+        <input
+          type="url"
+          placeholder="Website"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}  //HANDLE Website
+          className="input-field" 
+        />
+        <label>
+          <input
+          type="checkbox"
+          checked={favourite}
+          onChange={(e) =>setFavourite(e.target.checked)}
+          />
+          <span style={{marginLeft:"10px"}}>
+          Favourite ⭐
+          </span>
+        </label>
+
+
+
+
+
+
+
         <button onClick={addContact} className="add-button">
           Add Contact
         </button>
