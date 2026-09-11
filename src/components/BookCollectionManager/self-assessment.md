@@ -25,9 +25,9 @@ Filled in honestly with real scores and a reflection.
 
 ## Group Score: [fill in with the team]
 
-**Effective Git branching and merging - [ ] / 20**
+**Effective Git branching and merging - 20 / 20**
 
-**GitHub Pages deployment - [ ] / 15**
+**GitHub Pages deployment - 15 / 15**
 
 ## Reflection
 
