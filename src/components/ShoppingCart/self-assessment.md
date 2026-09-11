@@ -10,17 +10,17 @@
  - GitHub Pages deployment [15/15]
 
 ## Reflection
- 1. What did you implement?
+ 1. **What did you implement?**
   - I implemented ShoppingCart.jsx ShoppingCart.css Item.jsx
- 2. What React concepts did you practice?
+ 2. **What React concepts did you practice?**
   - I practiced components, hooks using useState(), working with react forms, parsing and mapping a list of items using a template Item.jsx
- 3. What was challenging?
-  - Understanding what the requirements are, where to write this reflection, writing from scratch without any skeleton
- 4. What would you improve in your code?
+ 3. **What was challenging?**
+  - Understanding what the requirements are in detail, where to write this reflection, writing from scratch without any skeleton
+ 4. **What would you improve in your code?**
   - I would probably add comments on every function so that its easier for someone to come back and understand the code easily
- 5. How did your team collaborate?
+ 5. **How did your team collaborate?**
   - We went over by the requirements and the whole activity together, we figured out how gh-pages work and we implemented that as a group, each of us chose a component to work on, if stuff were not cristal clear the whole team was a free space to communicate and ask question
- 6. Be honest when grading yourself and your group!!!
+ 6. **Be honest when grading yourself and your group!!!**
   - I was :)
 
 ## 1. Functionality
