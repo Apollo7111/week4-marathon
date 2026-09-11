@@ -101,7 +101,7 @@ function ShoppingCart() {
 
         {cartItems.length === 0 ? (
           <p className="empty-message">
-            Your cart is empty. Add an item to get started!
+            Cart is empty. Add an item to get started!
           </p>
         ) : (
           <div className="cart-list">

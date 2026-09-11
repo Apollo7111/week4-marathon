@@ -9,6 +9,8 @@ function Item({ item, onDelete }) {
         <p>Subtotal: €{item.subtotal}</p>
         <p>Tax: €{item.tax}</p>
         <p>Availability: {item.availability}</p>
+        {/* total = subtotal × quantity + tax */}
+        <h2>Total: €{(item.subtotal * item.quantity + item.tax).toFixed(2)}</h2>
       </div>
 
       <button onClick={onDelete} className="delete-button">
