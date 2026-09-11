@@ -3,9 +3,9 @@
 
 ## 1. Functionality
 - **Does the component meet the requirements?**
-  - [ ] Does it handle all the specified features (e.g., adding, removing, or updating books)?
-  - [ ] Are edge cases handled (e.g., empty inputs, duplicate entries)?
-  - [ ] Are there any bugs or unexpected behaviors?
+  - [X] Does it handle all the specified features (e.g., adding, removing, or updating books)?
+  - [X] Are edge cases handled (e.g., empty inputs, duplicate entries)?
+  - [X] Are there any bugs or unexpected behaviors? Not that I am aware of
 
 
 - **How well does the component integrate with other parts of the application?**
