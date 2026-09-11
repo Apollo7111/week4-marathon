@@ -1,0 +1,64 @@
+
+.shopping-cart {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.shopping-cart h1 {
+  margin-bottom: 25px;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.input-section input,
+.input-section select {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.input-section button {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.cart-section h2 {
+  margin-bottom: 20px;
+}
+
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.item-info h3 {
+  margin-top: 0;
+}
+
+.item-info p {
+  margin: 5px 0;
+}
+
+.delete-button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.empty-message {
+  color: #666;
+}
