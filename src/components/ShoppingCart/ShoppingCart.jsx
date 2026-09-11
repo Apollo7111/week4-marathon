@@ -3,6 +3,7 @@ import "./ShoppingCart.css";
 import Item from "./Item";
 
 function ShoppingCart() {
+  // Adding hooks for items and for each of the forms
   const [cartItems, setCartItems] = useState([]);
 
   const [name, setName] = useState("");
@@ -14,6 +15,7 @@ function ShoppingCart() {
 
   function addItem() {
     if (
+      // Validation to make sure each from has content inside
       name.trim() !== "" && brand.trim() !== "" && quantity !== "" && subtotal !== "" && tax !== ""
     ) {
       const newItem = {
@@ -26,8 +28,10 @@ function ShoppingCart() {
         availability,
       };
 
+      // Pushing the new item into the memory
       setCartItems((items) => [...items, newItem]);
 
+      // Clears the input areas of the forms
       setName("");
       setBrand("");
       setQuantity("");
@@ -46,7 +50,7 @@ function ShoppingCart() {
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>
-
+      {/* input tags for each form, adding onChange event that sets its variable after every change */}
       <div className="input-section">
         <input
           type="text"
@@ -99,11 +103,11 @@ function ShoppingCart() {
       <div className="cart-section">
         <h2>Your Cart ({cartItems.length})</h2>
 
-        {cartItems.length === 0 ? (
+        {cartItems.length === 0 ? ( // Uf statement
           <p className="empty-message">
             Cart is empty. Add an item to get started!
           </p>
-        ) : (
+        ) : ( // : else statement
           <div className="cart-list">
             {cartItems.map((item) => (
               <Item
